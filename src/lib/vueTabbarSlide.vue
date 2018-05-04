@@ -1,14 +1,9 @@
 <template>
   <div class="tabbar-slide-wrapper">
-    <!-- <div class="tabbar-slide">
-      <div :style="slideOptions" class="tabbar-slide-list" ref="slide" v-for="(item, index) in slideArr" :key="index">
-        {{item}}
-      </div>
-    </div> -->
     <div class="swiper-container">
       <div class="swiper-wrapper">
         <div :style="slideStyle" :class="[index == slideOptions.slideIndex ? 'swiper-slide-checked' : '', 'swiper-slide']" ref="slide" v-for="(item, index) in slideArr" :key="index">{{item}}</div>
-        <div ref="slideDownLine" class="slide-down-line"></div>
+        <div :style="{width: this.slideStyle.width}" ref="slideDownLine" class="slide-down-line"></div>
       </div>
     </div>
     <div class="tabbar-slide-container"></div>
@@ -26,24 +21,37 @@
       return {
         mySwiper: null,
         //数据
-        slideArr: [1,2,3,4,5,6,7,8,9,10],
+        slideArr: this.options.slideData || ['slide1', 'slide2', 'slide3', 'slide4', 'slide5', 'slide6', 'slide7', 'slide8', 'slide9', 'slide10', 'slide11', 'slide12', 'slide13'],
         //样式
         slideStyle: {
           //宽度
-          width: this.options.width || '50px',
+          width: this.options.width || '80px',
+          //高度
+          height: this.options.height || '40px',
+          //垂直高度
+          lineHeight: this.options.height || '40px',
           //文本排列方式
           textAlign: this.options.textAlign || 'center',
           //字体大小
           fontSize: this.options.fontSize || '14px',
           //字体格式
-          fontFamily: this.options.fontFamily || 'Microsoft YaHei'.mySwiper
+          fontFamily: this.options.fontFamily || 'Microsoft YaHei'
         },
         //选项
         slideOptions: {
-          slideIndex: 0
+          slideIndex: this.options.index || 0
         },
         //下划线
         slideDownLine: null
+      }
+    },
+    watch: {
+      options: {
+        handler: function(newValue, oldValue) {
+          this.mySwiper.update()
+          console.log(this.mySwiper)
+  　　　},
+  　　　deep: true
       }
     },
     mounted () {
@@ -51,6 +59,8 @@
         slidesPerView: "auto",
         freeMode: true,
         freeModeMomentumRatio: 0.5,
+        observer: true,
+        observeParents: false,
         on: {
           tap: () => {
             //滑动时间
@@ -82,7 +92,7 @@
             //更改class
             this.slideOptions.slideIndex = this.mySwiper.clickedIndex
             //下划线
-            this.$refs.slideDownLine.style.transform = `translateX(${this.slideOptions.slideIndex*50}px)`
+            this.$refs.slideDownLine.style.transform = `translateX(${this.slideOptions.slideIndex*parseInt(this.slideStyle.width)}px)`
           }
         }
       });
@@ -93,8 +103,6 @@
       const maxTranslate = this.mySwiper.maxTranslate()
       //
       const maxWidth = -maxTranslate + swiperWidth / 2
-
-
     },
     methods: {
 
@@ -112,14 +120,14 @@
 
   }
   .swiper-slide {
-
+    word-break: keep-all;
+    overflow: hidden;
   }
   .swiper-slide-checked {
     color: blueviolet;
   }
   .slide-down-line {
     position: absolute;
-    width: 50px;
     height: 1px;
     left: 0;
     bottom: 0;
