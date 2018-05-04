@@ -2,7 +2,7 @@
   <div class="tabbar-slide-wrapper">
     <div class="swiper-container">
       <div class="swiper-wrapper">
-        <div :style="slideStyle" :class="[index == slideOptions.slideIndex ? 'swiper-slide-checked' : '', 'swiper-slide']" ref="slide" v-for="(item, index) in slideArr" :key="index">{{item}}</div>
+        <div :style="slideStyle" :class="[index == slideOptions.slideIndex ? 'swiper-slide-checked' : '', 'swiper-slide']" ref="slide" v-for="(item, index) in options.slideData" :key="index">{{item}}</div>
         <div :style="{width: this.slideStyle.width}" ref="slideDownLine" class="slide-down-line"></div>
       </div>
     </div>
@@ -48,61 +48,110 @@
     watch: {
       options: {
         handler: function(newValue, oldValue) {
-          this.mySwiper.update()
-          console.log(this.mySwiper)
+          // this.mySwiper.update()
+          console.log(this.slideArr)
+          this.mySwiper = new Swiper('.swiper-container', {
+            slidesPerView: "auto",
+            freeMode: true,
+            freeModeMomentumRatio: 0.5,
+            observer: true,
+            observeParents: false,
+            on: {
+              tap: () => {
+                //滑动时间
+                this.mySwiper.setTransition(300)
+                //点击的slide
+                const slide = this.mySwiper.slides[this.mySwiper.clickedIndex]
+                //点击的slide offsetLeft距离浏览器左边距离
+                const slideLeft = slide.offsetLeft
+                //点击的slide的可视宽度
+                const slideWidth = slide.clientWidth
+                console.log(slideLeft)
+                // 被点击slide的中心点
+                const slideCenter = slideLeft + slideWidth / 2
+                //当中心点距离少于一半宽度时
+                if (slideCenter < swiperWidth / 2) {
+
+                  this.mySwiper.setTranslate(0)
+
+                } else if (slideCenter > maxWidth) {
+
+                  this.mySwiper.setTranslate(maxTranslate)
+
+                } else {
+
+                  const nowTlanslate = slideCenter - swiperWidth / 2
+
+                  this.mySwiper.setTranslate(-nowTlanslate)
+
+                }
+                //更改class
+                this.slideOptions.slideIndex = this.mySwiper.clickedIndex
+                //下划线
+                this.$refs.slideDownLine.style.transform = `translateX(${this.slideOptions.slideIndex*parseInt(this.slideStyle.width)}px)`
+              }
+            }
+          });
+
+          //swiper可视宽度
+          const swiperWidth = this.mySwiper.width
+          //swiper最大移动距离
+          const maxTranslate = swiperWidth - (parseInt(this.options.width) * this.options.slideData.length)
+          //
+          const maxWidth = -maxTranslate + swiperWidth / 2
   　　　},
   　　　deep: true
       }
     },
     mounted () {
-      this.mySwiper = new Swiper('.swiper-container', {
-        slidesPerView: "auto",
-        freeMode: true,
-        freeModeMomentumRatio: 0.5,
-        observer: true,
-        observeParents: false,
-        on: {
-          tap: () => {
-            //滑动时间
-            this.mySwiper.setTransition(300)
-            //点击的slide
-            const slide = this.mySwiper.slides[this.mySwiper.clickedIndex]
-            //点击的slide offsetLeft距离浏览器左边距离
-            const slideLeft = slide.offsetLeft
-            //点击的slide的可视宽度
-            const slideWidth = slide.clientWidth
-            // 被点击slide的中心点
-            const slideCenter = slideLeft + slideWidth / 2
-            //当中心点距离少于一半宽度时
-            if (slideCenter < swiperWidth / 2) {
+      // this.mySwiper = new Swiper('.swiper-container', {
+      //   slidesPerView: "auto",
+      //   freeMode: true,
+      //   freeModeMomentumRatio: 0.5,
+      //   observer: true,
+      //   observeParents: false,
+      //   on: {
+      //     tap: () => {
+      //       //滑动时间
+      //       this.mySwiper.setTransition(300)
+      //       //点击的slide
+      //       const slide = this.mySwiper.slides[this.mySwiper.clickedIndex]
+      //       //点击的slide offsetLeft距离浏览器左边距离
+      //       const slideLeft = slide.offsetLeft
+      //       //点击的slide的可视宽度
+      //       const slideWidth = slide.clientWidth
+      //       // 被点击slide的中心点
+      //       const slideCenter = slideLeft + slideWidth / 2
+      //       //当中心点距离少于一半宽度时
+      //       if (slideCenter < swiperWidth / 2) {
 
-              this.mySwiper.setTranslate(0)
+      //         this.mySwiper.setTranslate(0)
 
-            } else if (slideCenter > maxWidth) {
+      //       } else if (slideCenter > maxWidth) {
 
-              this.mySwiper.setTranslate(maxTranslate)
+      //         this.mySwiper.setTranslate(maxTranslate)
 
-            } else {
+      //       } else {
 
-              const nowTlanslate = slideCenter - swiperWidth / 2
+      //         const nowTlanslate = slideCenter - swiperWidth / 2
 
-              this.mySwiper.setTranslate(-nowTlanslate)
+      //         this.mySwiper.setTranslate(-nowTlanslate)
 
-            }
-            //更改class
-            this.slideOptions.slideIndex = this.mySwiper.clickedIndex
-            //下划线
-            this.$refs.slideDownLine.style.transform = `translateX(${this.slideOptions.slideIndex*parseInt(this.slideStyle.width)}px)`
-          }
-        }
-      });
+      //       }
+      //       //更改class
+      //       this.slideOptions.slideIndex = this.mySwiper.clickedIndex
+      //       //下划线
+      //       this.$refs.slideDownLine.style.transform = `translateX(${this.slideOptions.slideIndex*parseInt(this.slideStyle.width)}px)`
+      //     }
+      //   }
+      // });
 
-      //swiper可视宽度
-      const swiperWidth = this.mySwiper.width
-      //swiper最大移动距离
-      const maxTranslate = this.mySwiper.maxTranslate()
-      //
-      const maxWidth = -maxTranslate + swiperWidth / 2
+      // //swiper可视宽度
+      // const swiperWidth = this.mySwiper.width
+      // //swiper最大移动距离
+      // const maxTranslate = this.mySwiper.maxTranslate()
+      // //
+      // const maxWidth = -maxTranslate + swiperWidth / 2
     },
     methods: {
 
