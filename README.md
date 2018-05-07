@@ -57,8 +57,8 @@ Vue.use(vueTabbarSlide)
         getData1 () {
           this.options.slideData = ['data11', 'data21', 'data31', 'data41', 'data51', 'data61']
         },
-        callback () {
-          console.log('callback')
+        callback (event, index, val) {
+          console.log(`callback=${index},${val}`)
         }
       }
     }
@@ -86,7 +86,9 @@ Vue.use(vueTabbarSlide)
 
 ## Extension usage
 
+![image](https://github.com/Blubiubiu/vue-tabbar-slide/blob/master/gif/demo.png)
 
+you can use it to make a N-linkage and so on
 
 
 #######
