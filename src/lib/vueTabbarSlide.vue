@@ -1,10 +1,10 @@
 <template>
   <div class="tabbar-slide-wrapper">
-    <div class="swiper-container">
+    <div class="swiper-container" :class="options.container">
       <div class="swiper-wrapper">
-        <div :style="slideStyle" :class="[index == slideOptions.slideIndex ? 'swiper-slide-checked' : '', 'swiper-slide']" v-for="(item, index) in options.slideData" :key="index">{{item}}</div>
+        <div :style="[slideStyle, {'color': (index == slideOptions.slideIndex) ? slideStyle.checkedColor : slideStyle.color}]" :class="[index == slideOptions.slideIndex ? 'swiper-slide-checked' : '', 'swiper-slide']" v-for="(item, index) in options.slideData" :key="index">{{item}}</div>
         <!-- 下划线 -->
-        <div :style="{width: this.slideStyle.width, height: this.downLineStyle.downLineHeight, background: this.downLineStyle.downLineColor}" ref="slideDownLine" class="slide-down-line"></div>
+        <div :style="{width: slideStyle.width, height: downLineStyle.downLineHeight, background: downLineStyle.downLineColor}" ref="slideDownLine" class="slide-down-line"></div>
       </div>
     </div>
     <div class="tabbar-slide-container"></div>
@@ -39,6 +39,8 @@
           fontFamily: this.options.fontFamily || 'Microsoft YaHei',
           //默认字体颜色
           color: this.options.color || '#333',
+          //选中字体颜色
+          checkedColor: this.options.checkedColor || '#00a0e9'
         },
         downLineStyle: {
            //下划线高度
@@ -48,7 +50,7 @@
         },
         //选项
         slideOptions: {
-          slideIndex: this.options.index || 0
+          slideIndex: this.options.index - 1 || 0
         },
         //下划线
         slideDownLine: null
@@ -61,7 +63,7 @@
           if (this.mySwiper) {
             this.mySwiper.destroy(true, false)
           }
-          this.mySwiper = new Swiper('.swiper-container', {
+          this.mySwiper = new Swiper(`.${this.options.container}`, {
             slidesPerView: "auto",
             freeMode: true,
             freeModeMomentumRatio: 0.5,
@@ -70,49 +72,24 @@
             on: {
               init: () => {
                 //默认选中
-                this.slideOptions.slideIndex = 0
+                this.slideOptions.slideIndex = this.options.index - 1 || 0
                 //下划线
-                this.$refs.slideDownLine.style.transform = `translateX(0px)`
-
+                this.$refs.slideDownLine.style.transform = `translateX(${this.slideOptions.slideIndex*parseInt(this.slideStyle.width)}px)`
+                //回调函数
                 this.$emit("callback")
               },
               tap: () => {
                 //滑动时间
                 this.mySwiper.setTransition(300)
-                //点击的slide
-                const slide = this.mySwiper.slides[this.mySwiper.clickedIndex]
-                //点击的slide offsetLeft距离浏览器左边距离
-                const slideLeft = slide.offsetLeft
-                //点击的slide的可视宽度
-                const slideWidth = slide.clientWidth
-                // 被点击slide的中心点
-                const slideCenter = slideLeft + slideWidth / 2
-                //当中心点距离少于一半宽度时
-                if (slideCenter < swiperWidth / 2) {
-
-                  this.mySwiper.setTranslate(0)
-
-                } else if (slideCenter > maxWidth) {
-
-                  this.mySwiper.setTranslate(maxTranslate)
-
-                } else {
-
-                  const nowTlanslate = slideCenter - swiperWidth / 2
-
-                  this.mySwiper.setTranslate(-nowTlanslate)
-
-                }
+                //滑动
+                this.slide(swiperWidth, maxTranslate, maxWidth)
                 //更改class
                 this.slideOptions.slideIndex = this.mySwiper.clickedIndex
-                //选中颜色
-                slide.style.color = '#00a0e9'
                 //下划线
                 this.$refs.slideDownLine.style.transform = `translateX(${this.slideOptions.slideIndex*parseInt(this.slideStyle.width)}px)`
               }
             }
           });
-
           //swiper可视宽度
           const swiperWidth = this.mySwiper.width
           //swiper最大移动距离
@@ -124,11 +101,36 @@
       }
     },
     mounted () {
-      
+
     },
     methods: {
-      triggerClick() {
-        console.log(111)
+      slide(swiperWidth, maxTranslate, maxWidth) {
+        //点击的slide
+        const slide = this.mySwiper.slides[this.mySwiper.clickedIndex]
+        //点击的slide offsetLeft距离浏览器左边距离
+        const slideLeft = slide.offsetLeft
+        //点击的slide的可视宽度
+        const slideWidth = slide.clientWidth
+        // 被点击slide的中心点
+        const slideCenter = slideLeft + slideWidth / 2
+        //当中心点距离少于一半宽度时
+        if (slideCenter < swiperWidth / 2) {
+
+          this.mySwiper.setTranslate(0)
+
+        } else if (slideCenter > maxWidth) {
+
+          this.mySwiper.setTranslate(maxTranslate)
+
+        } else {
+
+          const nowTlanslate = slideCenter - swiperWidth / 2
+
+          this.mySwiper.setTranslate(-nowTlanslate)
+
+        }
+        //选中颜色
+        slide.style.color = this.downLineStyle.downLineColor
       }
     }
   }

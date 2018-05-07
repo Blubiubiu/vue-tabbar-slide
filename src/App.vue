@@ -1,9 +1,10 @@
 <template>
   <div id="app">
     <vue-tabbar-slide :options="options" @callback="callback"></vue-tabbar-slide>
+    <!-- <vue-tabbar-slide1 :options="options1" @callback="callback1"></vue-tabbar-slide1> -->
 
     <div @click="getData">点击获取数据</div>
-    <div @click="getData1">点击获取数据2</div>
+    <div @click="getData1">点击更改数据</div>
   </div>
 </template>
 
@@ -15,26 +16,40 @@ export default {
   data () {
     return {
       options: {
+        container: 'mySwiper1',
         slideData: [],
-        width: '80px'
+        width: '80px',
+        index: 1
+      },
+      options1: {
+        container: 'mySwiper2',
+        slideData: [],
+        width: '80px',
+        index: 1
       }
     }
   },
   components: {
-    vueTabbarSlide
+    vueTabbarSlide: vueTabbarSlide,
+    // vueTabbarSlide1: vueTabbarSlide
   },
   methods: {
     getData () {
       this.options.slideData = ['data1', 'data2', 'data3', 'data4', 'data5', 'data6', 'data7', 'data8', 'data9', 'data10']
+      // this.options1.slideData = ['data1', 'data2', 'data3', 'data4', 'data5', 'data6', 'data7', 'data8', 'data9', 'data10']
       console.log(this.options.slideData)
     },
     getData1 () {
       this.options.slideData = ['data11', 'data21', 'data31', 'data41', 'data51', 'data61']
+      // this.options1.slideData = ['data11', 'data21', 'data31', 'data41', 'data51', 'data61']
       console.log(this.options.slideData)
     },
     callback () {
       console.log('回调')
-    }
+    },
+    callback1 () {
+      console.log('回调')
+    },
   }
 }
 </script>
