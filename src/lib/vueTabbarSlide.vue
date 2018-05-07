@@ -50,7 +50,7 @@
         },
         //选项
         slideOptions: {
-          slideIndex: this.options.index - 1 || 0
+          slideIndex: this.options.index || 0
         },
         //下划线
         slideDownLine: null
@@ -72,11 +72,11 @@
             on: {
               init: () => {
                 //默认选中
-                this.slideOptions.slideIndex = this.options.index - 1 || 0
+                this.slideOptions.slideIndex = this.options.index || 0
                 //下划线
                 this.$refs.slideDownLine.style.transform = `translateX(${this.slideOptions.slideIndex*parseInt(this.slideStyle.width)}px)`
                 //回调函数
-                this.$emit("callback")
+                this.$emit("callback", event, this.slideOptions.slideIndex, this.options.slideData[this.slideOptions.slideIndex])
               },
               tap: () => {
                 //滑动时间
@@ -87,6 +87,8 @@
                 this.slideOptions.slideIndex = this.mySwiper.clickedIndex
                 //下划线
                 this.$refs.slideDownLine.style.transform = `translateX(${this.slideOptions.slideIndex*parseInt(this.slideStyle.width)}px)`
+                //回调函数
+                this.$emit("callback", event, this.mySwiper.clickedIndex, event.target.innerText)
               }
             }
           });

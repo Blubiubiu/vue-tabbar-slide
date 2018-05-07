@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <vue-tabbar-slide :options="options" @callback="callback"></vue-tabbar-slide>
-    <!-- <vue-tabbar-slide1 :options="options1" @callback="callback1"></vue-tabbar-slide1> -->
+    <vue-tabbar-slide1 :options="options1" @callback="callback1"></vue-tabbar-slide1>
 
     <div @click="getData">点击获取数据</div>
-    <div @click="getData1">点击更改数据</div>
+    <div>第一行下标及数据{{callbackHtml}},<br>第二行下标及数据{{callbackHtml1}}</div>
   </div>
 </template>
 
@@ -16,39 +16,35 @@ export default {
   data () {
     return {
       options: {
-        container: 'mySwiper1',
+        container: 'mySlide1',
         slideData: [],
         width: '80px',
         index: 1
       },
       options1: {
-        container: 'mySwiper2',
+        container: 'mySlide2',
         slideData: [],
         width: '80px',
         index: 1
-      }
+      },
+      callbackHtml: '',
+      callbackHtml1: ''
     }
   },
   components: {
     vueTabbarSlide: vueTabbarSlide,
-    // vueTabbarSlide1: vueTabbarSlide
+    vueTabbarSlide1: vueTabbarSlide
   },
   methods: {
     getData () {
       this.options.slideData = ['data1', 'data2', 'data3', 'data4', 'data5', 'data6', 'data7', 'data8', 'data9', 'data10']
-      // this.options1.slideData = ['data1', 'data2', 'data3', 'data4', 'data5', 'data6', 'data7', 'data8', 'data9', 'data10']
-      console.log(this.options.slideData)
+      this.options1.slideData = ['data11', 'data21', 'data31', 'data41', 'data51', 'data61']
     },
-    getData1 () {
-      this.options.slideData = ['data11', 'data21', 'data31', 'data41', 'data51', 'data61']
-      // this.options1.slideData = ['data11', 'data21', 'data31', 'data41', 'data51', 'data61']
-      console.log(this.options.slideData)
+    callback (event, index, val) {
+      this.callbackHtml = index + ';' + val
     },
-    callback () {
-      console.log('回调')
-    },
-    callback1 () {
-      console.log('回调')
+    callback1 (event, index, val) {
+      this.callbackHtml1 = index + ';' + val
     },
   }
 }

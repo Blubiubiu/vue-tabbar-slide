@@ -2,8 +2,8 @@
 
 > A Vue.js Slide Tab-bar
 
-<a href="https://www.npmjs.org/package/vue-pay-pop">
-  <img src="https://img.shields.io/npm/v/vue-pay-pop.svg">
+<a href="https://www.npmjs.org/package/vue-tabbar-slide">
+  <img src="https://img.shields.io/npm/v/vue-tabbar-slide.svg">
 </a>
 
 ![image](https://github.com/Blubiubiu/vue-tabbar-slide/blob/master/gif/demo.gif)
@@ -73,7 +73,7 @@ Vue.use(vueTabbarSlide)
 | container | String | --- | container name |
 | slideData | Array | --- | data |
 | optional |
-| slideIndex | Number | 1 | default index |
+| slideIndex | Number | 0 | default index |
 | width | String | 80px | slide width |
 | height | String | 40px | slide height |
 | textAlign | String | center | text-align |
@@ -83,6 +83,10 @@ Vue.use(vueTabbarSlide)
 | checkedColor | String | #00a0e9 | checked-color |
 | downLineHeight | String | 2px | underline height |
 | downLineColor | String | #00a0e9 | underline color |
+
+## Extension usage
+
+
 
 
 #######
