@@ -14,6 +14,10 @@
     "swiper": "^4.2.6",
     "vue": "^2.5.11"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blubiubiu/vue-tabbar-slide.git"
+  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
@@ -23,6 +27,7 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",

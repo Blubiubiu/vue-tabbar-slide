@@ -1,4 +1,4 @@
-import vueTabbarSlide from './vue-tabbar-slide.vue' // 导入组件
+import vueTabbarSlide from './vueTabbarSlide.vue' // 导入组件
 
 const tabbarSlide = {
     install(Vue, options) {
@@ -13,8 +13,5 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 export default tabbarSlide
 
-export {
-  vueTabbarSlide
-}
 
 

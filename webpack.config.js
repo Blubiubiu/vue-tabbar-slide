@@ -1,6 +1,10 @@
 var path = require('path')
 var webpack = require('webpack')
 
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
+
 module.exports = {
   // entry: './src/main.js',
   entry: './src/lib/index.js',
@@ -63,7 +67,6 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
