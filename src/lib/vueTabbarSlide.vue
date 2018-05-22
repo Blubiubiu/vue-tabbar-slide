@@ -2,7 +2,7 @@
   <div class="tabbar-slide-wrapper">
     <div class="swiper-container" :class="options.container">
       <div class="swiper-wrapper">
-        <div :style="[slideStyle, {'color': (index == slideOptions.slideIndex) ? slideStyle.checkedColor : slideStyle.color}]" :class="[index == slideOptions.slideIndex ? 'swiper-slide-checked' : '', 'swiper-slide']" v-for="(item, index) in options.slideData" :key="index">{{item}}</div>
+        <div :style="[slideStyle, {'color': (index == slideOptions.slideIndex) ? slideStyle.checkedColor : slideStyle.color}]" :class="[index == slideOptions.slideIndex ? 'swiper-slide-checked' : '', 'swiper-slide']" v-for="(item, index) in options.slideData" :key="index" :data-id="slideOptions.slideId[index]">{{item}}</div>
         <!-- 下划线 -->
         <div :style="{width: slideStyle.width, height: downLineStyle.downLineHeight, background: downLineStyle.downLineColor}" ref="slideDownLine" class="slide-down-line"></div>
       </div>
@@ -17,7 +17,7 @@
 
   export default {
     name: 'vueTabbarSlide',
-    props: ['options'],
+    props: ['options', 'slideId'],
     data () {
       return {
         mySwiper: null,
@@ -101,9 +101,6 @@
   　　　},
   　　　deep: true
       }
-    },
-    mounted () {
-
     },
     methods: {
       slide(swiperWidth, maxTranslate, maxWidth) {

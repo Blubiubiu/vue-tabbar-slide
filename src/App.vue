@@ -18,6 +18,7 @@ export default {
       options: {
         container: 'mySlide1',
         slideData: [],
+        slideId: [],
         width: '80px',
         index: 1
       },
@@ -38,6 +39,7 @@ export default {
   methods: {
     getData () {
       this.options.slideData = ['data1', 'data2', 'data3', 'data4', 'data5', 'data6', 'data7', 'data8', 'data9', 'data10']
+      this.options.slideId = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
       this.options1.slideData = ['data11', 'data21', 'data31', 'data41', 'data51', 'data61']
     },
     callback (event, index, val) {
