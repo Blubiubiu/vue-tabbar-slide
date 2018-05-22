@@ -2,7 +2,7 @@
   <div class="tabbar-slide-wrapper">
     <div class="swiper-container" :class="options.container">
       <div class="swiper-wrapper">
-        <div :style="[slideStyle, {'color': (index == slideOptions.slideIndex) ? slideStyle.checkedColor : slideStyle.color}]" :class="[index == slideOptions.slideIndex ? 'swiper-slide-checked' : '', 'swiper-slide']" v-for="(item, index) in options.slideData" :key="index" :data-id="slideOptions.slideId[index]">{{item}}</div>
+        <div :style="[slideStyle, {'color': (index == slideOptions.slideIndex) ? slideStyle.checkedColor : slideStyle.color}]" :class="[index == slideOptions.slideIndex ? 'swiper-slide-checked' : '', 'swiper-slide']" v-for="(item, index) in options.slideData" :key="index" :data-id="options.slideId[index]">{{item}}</div>
         <!-- 下划线 -->
         <div :style="{width: slideStyle.width, height: downLineStyle.downLineHeight, background: downLineStyle.downLineColor}" ref="slideDownLine" class="slide-down-line"></div>
       </div>
@@ -17,7 +17,7 @@
 
   export default {
     name: 'vueTabbarSlide',
-    props: ['options', 'slideId'],
+    props: ['options'],
     data () {
       return {
         mySwiper: null,
@@ -75,8 +75,6 @@
                 this.slideOptions.slideIndex = this.options.index || 0
                 //下划线
                 this.$refs.slideDownLine.style.transform = `translateX(${this.slideOptions.slideIndex*parseInt(this.slideStyle.width)}px)`
-                //回调函数
-                this.$emit("callback", event, this.slideOptions.slideIndex, this.options.slideData[this.slideOptions.slideIndex])
               },
               tap: () => {
                 //滑动时间
@@ -88,7 +86,7 @@
                 //下划线
                 this.$refs.slideDownLine.style.transform = `translateX(${this.slideOptions.slideIndex*parseInt(this.slideStyle.width)}px)`
                 //回调函数
-                this.$emit("callback", event, this.mySwiper.clickedIndex, event.target.innerText)
+                this.$emit("callback", event, this.mySwiper.clickedIndex, event.target.innerText, event.target.dataset.id)
               }
             }
           });
