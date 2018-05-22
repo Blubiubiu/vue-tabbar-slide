@@ -44,6 +44,8 @@ Vue.use(vueTabbarSlide)
             //required(必填项)
             container: 'mySlide1',
             slideData: [],
+              //用来传递data-id
+            slideId: [],
             //optional(可选项)
             width: '80px',
             index: 1
@@ -53,12 +55,14 @@ Vue.use(vueTabbarSlide)
       methods: {
         getData () {
           this.options.slideData = ['data1', 'data2', 'data3', 'data4', 'data5', 'data6', 'data7', 'data8', 'data9', 'data10']
+          this.options.slideId = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
         },
         getData1 () {
           this.options.slideData = ['data11', 'data21', 'data31', 'data41', 'data51', 'data61']
+          this.options.slideId = ['11', '21', '31', '41', '51', '61', '71', '81', '91', '101']
         },
-        callback (event, index, val) {
-          console.log(`callback=${index},${val}`)
+        callback (event, index, val, id) {
+          console.log(`callback=${index},${val},${id}`)
         }
       }
     }
@@ -72,6 +76,7 @@ Vue.use(vueTabbarSlide)
 | required |
 | container | String | --- | container name |
 | slideData | Array | --- | data |
+| slideId | Array | --- | data-id |
 | optional |
 | slideIndex | Number | 0 | default index |
 | width | String | 80px | slide width |
