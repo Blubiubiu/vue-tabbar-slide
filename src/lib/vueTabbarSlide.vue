@@ -2,7 +2,7 @@
   <div class="tabbar-slide-wrapper">
     <div class="swiper-container" :class="options.container">
       <div class="swiper-wrapper">
-        <div :style="[slideStyle, {'color': (index == slideOptions.slideIndex) ? slideStyle.checkedColor : slideStyle.color}]" :class="[index == slideOptions.slideIndex ? 'swiper-slide-checked' : '', 'swiper-slide']" v-for="(item, index) in options.slideData" :key="index" :data-id="options.slideId[index]">{{item}}</div>
+        <div :style="[slideStyle, {'color': (index == slideOptions.slideIndex) ? slideStyle.checkedColor : slideStyle.color}]" :class="[index == slideOptions.slideIndex ? 'swiper-slide-checked' : '', 'swiper-slide']" :data-id="options.slideId[index]" v-for="(item, index) in options.slideData" :key="index">{{item}}{{options.slideId[index]}}</div>
         <!-- 下划线 -->
         <div :style="{width: slideStyle.width, height: downLineStyle.downLineHeight, background: downLineStyle.downLineColor}" ref="slideDownLine" class="slide-down-line"></div>
       </div>

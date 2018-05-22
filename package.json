@@ -1,7 +1,7 @@
 {
   "name": "vue-tabbar-slide",
   "description": "A Vue.js Slide Tab-bar",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "author": "lsy <272631750@qq.com>",
   "license": "MIT",
   "private": false,
