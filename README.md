@@ -78,7 +78,7 @@ Vue.use(vueTabbarSlide)
 | slideData | Array | --- | data |
 | slideId | Array | --- | data-id |
 | optional |
-| slideIndex | Number | 0 | default index |
+| index | Number | 0 | default index |
 | width | String | 80px | slide width |
 | height | String | 40px | slide height |
 | textAlign | String | center | text-align |
