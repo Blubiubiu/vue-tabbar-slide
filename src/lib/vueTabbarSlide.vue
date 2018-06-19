@@ -111,16 +111,16 @@
         // 被点击slide的中心点
         const slideCenter = slideLeft + slideWidth / 2
         //当中心点距离少于一半宽度时
-        if (slideCenter < swiperWidth / 2 || (slideWidth*this.mySwiper.slides.length) < swiperWidth || this.mySwiper.slides.length <= 4) {
-          alert(this.mySwiper.slides.length)
+        if (slideCenter < swiperWidth / 2 || (slideWidth*this.mySwiper.slides.length) < swiperWidth) {
+
           this.mySwiper.setTranslate(0)
 
         } else if (slideCenter > maxWidth) {
-          alert(2)
+
           this.mySwiper.setTranslate(maxTranslate)
 
         } else {
-          alert(3)
+
           const nowTlanslate = slideCenter - swiperWidth / 2
 
           this.mySwiper.setTranslate(-nowTlanslate)
