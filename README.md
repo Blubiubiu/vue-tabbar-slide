@@ -89,6 +89,11 @@ Vue.use(vueTabbarSlide)
 | downLineHeight | String | 2px | underline height |
 | downLineColor | String | #00a0e9 | underline color |
 
+
+## update
+
+Solve the problem when the number of slide is insufficient
+
 ## Extension usage
 
 ![image](https://github.com/Blubiubiu/vue-tabbar-slide/blob/master/gif/demo.png)
