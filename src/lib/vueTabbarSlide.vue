@@ -111,7 +111,7 @@
         // 被点击slide的中心点
         const slideCenter = slideLeft + slideWidth / 2
         //当中心点距离少于一半宽度时
-        if (slideCenter < swiperWidth / 2 || (slideWidth*this.mySwiper.slides.length) < swiperWidth) {
+        if ((slideWidth*this.mySwiper.slides.length) < swiperWidth || slideCenter < swiperWidth / 2) {
 
           this.mySwiper.setTranslate(0)
 
