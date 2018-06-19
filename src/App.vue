@@ -39,8 +39,10 @@ export default {
   },
   methods: {
     getData () {
-      this.options.slideData = ['data1', 'data2', 'data3', 'data3']
-      this.options.slideId = ['1', '2', '3', '4']
+      setTimeout(()=> {
+        this.options.slideData = ['data1', 'data2', 'data3']
+      this.options.slideId = ['1', '2', '3']
+      }, 2000)
       this.options1.slideData = ['data11', 'data21', 'data31', 'data41', 'data51', 'data61']
       this.options1.slideId = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
     },
